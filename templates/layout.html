@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+
+	<meta charset="UTF-8">
+	<title>Todos App</title>
+	 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
+		<h1>Todos App</h1>
+		<a href="{{ url_for('add_todo') }}">ADD A TODO!</a>
+		<a href="{{ url_for('create_todo')}}">TESTING OUT URL FOR CREATE TODO!</a>
+		{% for message in get_flashed_messages() %}
+		{{ message }}
+		{% endfor %}
+	{% block content %}
+	{% endblock %}
+
+	</div>
+	 
+
+</html>
+
