@@ -53,27 +53,27 @@ def list_todos():
   todos = cur.fetchall()
   return render_template('index.html', todos=todos)
 
-@app.route('/add_todo')
+@app.route('/add_todo', methods = ['POST'])
 def add_todo():
-  db = get_db()
-  db.execute('insert into todos (todo_text, priority, completed) values (?,?,?)',
-    [request.form['title'], request.form['text']])
-  db.commit()
-  flash('New todo was created!')
-  return redirect(url_for('list_todos'))
+   db = get_db()
+   db.execute('insert into todos (todo_text, priority, completed) values (?,?,?)',
+     [request.form['todo_text'], request.form['priority'], False])
+   db.commit()
+   flash('New todo was created!')
+   return redirect(url_for('list_todos'))
 
 
-@app.route('/create_todo', methods=['POST'])
-def create_todo():
-  if request.method == 'POST':
-    todo_text = request.form['todo_text']
-    priority = request.form['priority']
-    completed = request.form['completed']
-    db = get_db()
-    db.execute('insert into todos (todo_text, priority, completed) values (?, ?, ?)',
-               [todo_text, priority, completed])
-    db.commit()
-  return redirect(url_for('list_todos'))
+# @app.route('/create_todo', methods=['POST','GET'])
+# def display_todo():
+#   if request.method == 'POST':
+#     todo_text = request.form['todo_text']
+#     priority = request.form['priority']
+#     completed = request.form['completed']
+#     db = get_db()
+#     db.execute('insert into todos (todo_text, priority, completed) values (?, ?, ?)',
+#                [todo_text, priority, completed])
+#     db.commit()
+#   return redirect(url_for('list_todos'))
 
   
 if __name__ == '__main__':

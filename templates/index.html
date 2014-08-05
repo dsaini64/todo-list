@@ -1,17 +1,18 @@
 {% extends "layout.html" %}
-{% block body %}
-	<form action="{{ url_for('add_todo') }}" method=post class=add-todo>
+{% block content %}
+	<form action="{{ url_for('add_todo') }}" method='post' class='add-todo'>
 		<dl>
 			<dt>Todo Text:
-			<dd><input type=text size=30 name=todo-text>
+			<dd><input type='text' size='30' name='todo-text'>
 			<dt>Priority:
-			<dd><input type=radio name=priority value="High"> High
-			<dd><input type=radio name=priority value="Low"> Low
+			<dd><input type='radio' name='priority' value="High"> High
+			<dd><input type='radio' name='priority' value="Low"> Low
 			<dt>Completed?:
-			<dd><input type=text size=30 name=completed>
+			<!-- <dd><input type='checkbox' name='completed'> -->
+			<dd><input type='submit' value='Submit'>
 		</dl>
 	</form>
-	<ul class=todos>
+	<ul class='todos'>
   	{% for todo in todos %}
    	 	<li>{{ todo.todo_text }}</li>
   {% else %}
