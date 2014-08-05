@@ -3,7 +3,7 @@ import os
 from sqlite3 import dbapi2 as sqlite3
 
 # 3rd party imports
-from flask import Flask, g, request, render_template, redirect, url_for
+from flask import Flask, g, request, render_template, redirect, url_for, flash
 
 # Local Imports
 
@@ -49,11 +49,11 @@ def close_db(error):
 @app.route('/')
 def list_todos():
   db = get_db()
-  cur = db.execute('select todo_text, priority, completed from todos order by id desc')
+  cur = db.execute('select * from todos order by id desc')
   todos = cur.fetchall()
   return render_template('index.html', todos=todos)
 
-@app.route('/add_todo', methods = ['POST'])
+@app.route('/add_todo', methods=['POST'])
 def add_todo():
    db = get_db()
    db.execute('insert into todos (todo_text, priority, completed) values (?,?,?)',
@@ -62,20 +62,13 @@ def add_todo():
    flash('New todo was created!')
    return redirect(url_for('list_todos'))
 
+@app.route('/mark_completed/<todo_id>')
+def mark_completed(todo_id=None):
+  db = get_db()
+  db.execute('UPDATE todos SET completed=? WHERE id=?', [True, todo_id])
+  db.commit()
+  return redirect(url_for('list_todos'))
 
-# @app.route('/create_todo', methods=['POST','GET'])
-# def display_todo():
-#   if request.method == 'POST':
-#     todo_text = request.form['todo_text']
-#     priority = request.form['priority']
-#     completed = request.form['completed']
-#     db = get_db()
-#     db.execute('insert into todos (todo_text, priority, completed) values (?, ?, ?)',
-#                [todo_text, priority, completed])
-#     db.commit()
-#   return redirect(url_for('list_todos'))
-
-  
 if __name__ == '__main__':
     app.run()
 
