@@ -69,6 +69,13 @@ def mark_completed(todo_id=None):
   db.commit()
   return redirect(url_for('list_todos'))
 
+@app.route('/mark_uncompleted/<todo_id>')
+def mark_uncompleted(todo_id=None):
+  db = get_db()
+  db.execute('UPDATE todos SET completed=? WHERE id=?', [False, todo_id])
+  db.commit()
+  return redirect(url_for('list_todos'))
+
 if __name__ == '__main__':
     app.run()
 

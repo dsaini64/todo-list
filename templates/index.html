@@ -11,18 +11,27 @@
 		</dl>
 	</form>
 	<ul class='todos'>
-  	{% for todo in todos %}
-   	 	<li>
-      {% if todo.completed %}
-        <strike>
-      {% endif %}
-      {{ todo.todo_text }} <a href="/mark_completed/{{ todo.id }}">Mark as completed</a>
-      {% if todo.completed %}
+  {% for todo in todos %}
+    <li>
+    {% if not todo.completed %}
+
+     <form action="/mark_completed/{{ todo.id }}">
         </strike>
-      {% endif %}
-      </li>
-  {% else %}
-  		<li>No todos yet!</li>
+        <dd><input type='submit' value='Mark as Completed'>{{ todo.todo_text }}</dd>
+        
+      </form>
+
+    {% else %}
+      <strike>
+      <form action="/mark_uncompleted/{{ todo.id }}">
+        <dd><input type='submit' value='Mark as Uncompleted'>{{ todo.todo_text }}</dd>
+      </form>
+    {% endif %}
+
+    </li>
+    </ul>
   {% endfor %}
-  </ul>
 {% endblock %}
+
+
+      
