@@ -49,7 +49,7 @@ def close_db(error):
 @app.route('/')
 def list_todos():
   db = get_db()
-  cur = db.execute('select * from todos order by id desc')
+  cur = db.execute('select * from todos order by priority asc')
   todos = cur.fetchall()
   return render_template('index.html', todos=todos)
 

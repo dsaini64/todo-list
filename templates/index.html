@@ -2,12 +2,10 @@
 {% block content %}
 	<form action="{{ url_for('add_todo') }}" method='post' class='add-todo'>
 		<dl>
-			<dt>Todo Text:</dt>
-			<dd><input type='text' size='30' name='todo_text'></dd>
-			<dt>Priority:</dt>
+			<dd><input type='text' size='30' name='todo_text' class="todo-text"></dd>
 			<dd><input type='radio' name='priority' value="High"> High</dd>
 			<dd><input type='radio' name='priority' value="Low"> Low</dd>
-			<dd><input type='submit' value='Submit'></dd>
+			<dd><input type='submit' value='Submit' id="submit_todo"></dd>
 		</dl>
 	</form>
 	<ul class='todos'>
@@ -16,21 +14,21 @@
     {% if not todo.completed %}
 
      <form action="/mark_completed/{{ todo.id }}">
-        </strike>
-        <dd><input type='submit' value='Mark as Completed'>{{ todo.todo_text }}</dd>
-        
+        <dd><input type='submit' value='Mark as Completed' />{{ todo.todo_text }}</dd>
       </form>
 
     {% else %}
       <strike>
       <form action="/mark_uncompleted/{{ todo.id }}">
-        <dd><input type='submit' value='Mark as Uncompleted'>{{ todo.todo_text }}</dd>
+        <dd><input type='submit' value='Mark as Uncompleted' />{{ todo.todo_text }}</dd>
       </form>
+      </strike>
     {% endif %}
 
     </li>
-    </ul>
   {% endfor %}
+      </ul>
+
 {% endblock %}
 
 
