@@ -32,5 +32,7 @@ class TodosTestCase(unittest.TestCase):
     response = self.addTodo(text='A test todo')
     assert 'A test todo' in response.data
 
+def test_
+
 if __name__ == '__main__':
   unittest.main()
