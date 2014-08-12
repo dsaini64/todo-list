@@ -14,32 +14,24 @@
     {% if not todo.completed %}
       {% if todo.priority == "High" %}
         <form action="/mark_completed/{{ todo.id }}">
-          <dd><input type='submit' value='Mark as Completed' /><font color="red">{{ todo.todo_text }}</font></dd>
+          <dd class='red'><input type='submit' value='Mark as Completed'/>{{ todo.todo_text }}</dd>
         </form>
       {% else %}
          <form action="/mark_completed/{{ todo.id }}">
-            <dd><input type='submit' value='Mark as Completed' /><font color="green">{{ todo.todo_text }}</font></dd>
+            <dd class='green'><input type='submit' value='Mark as Completed'/>{{ todo.todo_text }}</dd>
           </form>
       {% endif %}
     {% else %}
-      {% if todo.priority == "High" %}
         <strike>
         <form action="/mark_uncompleted/{{ todo.id }}">
-          <dd><input type='submit' value='Mark as Uncompleted' /><font color="red">{{ todo.todo_text }}</font></dd>
+          <dd><input type='submit' value='Mark as Uncompleted'/>{{ todo.todo_text }}</dd>
         </form>
         </strike>
-      {% else %}
-         <strike>
-        <form action="/mark_uncompleted/{{ todo.id }}">
-          <dd><input type='submit' value='Mark as Uncompleted' /><font color="green">{{ todo.todo_text }}</font></dd>
-        </form>
-        </strike>
-      {% endif %}
     {% endif %}
 
     </li>
   {% endfor %}
-      </ul>
+  </ul>
 
 {% endblock %}
 

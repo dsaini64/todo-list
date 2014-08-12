@@ -8,6 +8,14 @@
 	font-size:30px;
 }
 
+.red{
+	color: red;
+}
+
+.green{
+	color:green;
+}
+
 dl dd {
 	display: inline-block;
 }
