@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.config.update(dict(
   DATABASE=os.path.join(app.root_path, 'todos.db'),
   DEBUG=True,
-  SECRET_KEY='todos key'
+  SECRET_KEY='todos secret key'
 ))
 
 def connect_db():
@@ -49,7 +49,7 @@ def close_db(error):
 @app.route('/')
 def list_todos():
   db = get_db()
-  cur = db.execute('select * from todos order by priority asc, id desc')
+  cur = db.execute('select * from todos order by completed asc, priority asc, id desc')
   todos = cur.fetchall()
   return render_template('index.html', todos=todos)
 

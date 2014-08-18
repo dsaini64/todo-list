@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-	<form action="{{ url_for('add_todo') }}" method='post' class='add-todo'>
+	<form action="{{ url_for('add_todo') }}" id='testid' method='post' class='add-todo'>
 		<dl>
 			<dd><input type='text' size='30' name='todo_text' class="todo-text"></dd>
 			<dd><input type='radio' name='priority' value="High"> High</dd>
@@ -14,7 +14,7 @@
     {% if not todo.completed %}
       {% if todo.priority == "High" %}
         <form action="/mark_completed/{{ todo.id }}">
-          <dd class='red'><input type='submit' value='Mark as Completed'/>{{ todo.todo_text }}</dd>
+          <dd class='red'><input id='completed' type='submit' value='Mark as Completed'/>{{ todo.todo_text }}</dd>
         </form>
       {% else %}
          <form action="/mark_completed/{{ todo.id }}">
