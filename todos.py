@@ -17,6 +17,7 @@ app.config.update(dict(
   SECRET_KEY='todos secret key'
 ))
 
+
 def connect_db():
     """Connects to the specific database."""
     rv = sqlite3.connect(app.config['DATABASE'])
@@ -32,6 +33,7 @@ def init_db():
           db.cursor().executescript(f.read())
       db.commit()
 
+
 def get_db():
     """Opens a new database connection if there is none yet for the
     current application context."""
@@ -46,12 +48,14 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
+
 @app.route('/')
 def list_todos():
   db = get_db()
   cur = db.execute('select * from todos order by completed asc, priority asc, id desc')
   todos = cur.fetchall()
   return render_template('index.html', todos=todos)
+
 
 @app.route('/add_todo', methods=['POST'])
 def add_todo():
@@ -62,12 +66,14 @@ def add_todo():
    flash('New todo was created!')
    return redirect(url_for('list_todos'))
 
+
 @app.route('/mark_completed/<todo_id>')
 def mark_completed(todo_id=None):
   db = get_db()
   db.execute('UPDATE todos SET completed=? WHERE id=?', [True, todo_id])
   db.commit()
   return redirect(url_for('list_todos'))
+
 
 @app.route('/mark_uncompleted/<todo_id>')
 def mark_uncompleted(todo_id=None):
@@ -76,7 +82,7 @@ def mark_uncompleted(todo_id=None):
   db.commit()
   return redirect(url_for('list_todos'))
 
+
 if __name__ == '__main__':
     app.run()
-
 
