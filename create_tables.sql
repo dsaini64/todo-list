@@ -4,6 +4,4 @@ create table todos (
 	todo_text text not null, 
 	priority integer, 
 	completed boolean not null
-
-	
 ); 
